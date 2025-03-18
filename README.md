@@ -1,6 +1,6 @@
-# OTUS PRO Homework 37 VLAN and LACP
+# OTUS PRO Homework 27 backup
 
-## Домашняя работа 37: Строим бонды и вланы
+## Домашняя работа 27: Резервное копирование
 
 ### Домашнее задание:
 Описание домашнего задания:
@@ -25,15 +25,15 @@
 **[Как установить Vagrant на Debian 12](https://github.com/avlikh/Install_Vagrant_Debian12/blob/main/README.md)**   
 
 Развернем Vagrant-стенд:
-  - Создайте папку с проектом и зайдите в нее (например: /opt/otus/vlan-lacp):
+  - Создайте папку с проектом и зайдите в нее (например: /opt/otus/backup):
 ```
-mkdir -p /opt/otus/vlan-lacp ; cd /opt/otus/vlan-lacp
+mkdir -p /opt/otus/backup ; cd /opt/otus/backup
 ```
   - Клонируете проект с Github, набрав команду:
 ```
-apt update -y && apt install git -y ; git clone https://github.com/avlikh/Otus_pro_37.git .
+apt update -y && apt install git -y ; git clone https://github.com/avlikh/Otus_pro_27.git .
 ```
-  - Запустите проект из папки, в которую склонировали проект (в нашем примере /opt/otus/vlan-lacp):
+  - Запустите проект из папки, в которую склонировали проект (в нашем примере /opt/otus/backup):
 ```
 vagrant up
 ```
