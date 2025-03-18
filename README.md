@@ -201,9 +201,10 @@ client                     : ok=9    changed=6    unreachable=0    failed=0    s
     
 В результате подготовки рабочего места (пункт 1) были созданы 2 виртуальные машины, к которым были применены необходимые настройки.    
 Был выполнен playbook Ansible https://github.com/avlikh/Otus_pro_27/blob/main/provision.yaml.    
-Созданные виртуальные машины соединены между сосбой, согласно схеме сети (см. ниже)
+
+---
      
-* зайдем на **client** и повысим полномочия до root: `vagrant ssh testClient1` `sudo -i`
+**Зайдем на **client** и повысим полномочия до root:** `vagrant ssh testClient1` `sudo -i`
 <details>
 <summary> результат выполнения команд </summary>
 
@@ -223,7 +224,7 @@ vagrant@client:~$ sudo -i
 </details>
     
     
-Убедимся что служба таймера работает `systemctl status borg-backup-client.timer` 
+**Убедимся что служба таймера работает:** `systemctl status borg-backup-client.timer` 
 <details>
 <summary> результат выполнения команды  </summary>
 
@@ -245,7 +246,7 @@ Mar 18 10:28:59 client systemd[1]: Started borg-backup-client.timer - Borg Servi
 
 ---
 
-Посмотрим на репозитории borg: `borg list borg@192.168.56.11:/var/backup`
+**Посмотрим на репозитории borg:** `borg list borg@192.168.56.11:/var/backup`
 * Примечание: для доступа к репозиториям borg потребуется пароль: **Otus1234**
 
 <details>
@@ -262,7 +263,7 @@ client-2025-03-18_16:50:54           Tue, 2025-03-18 16:50:55 [53f2196e51b7af3ab
 
 ---
 
-Посмотрим логи borg: `journalctl -t borg`
+**Посмотрим логи borg:** `journalctl -t borg`
 
 
 <details>
@@ -470,7 +471,7 @@ Mar 18 16:50:59 client borg[16893]: Remote: Warning: Permanently added '192.168.
 
 ---
      
-Посмотрим содержимое архива: `borg list borg@192.168.56.11:/var/backup::client-2025-03-18_17:01:34`
+**Посмотрим содержимое архива:** `borg list borg@192.168.56.11:/var/backup::client-2025-03-18_17:01:34`
 * Пароль все тот же ;-) : **Otus1234**
 
 <details>
@@ -558,5 +559,5 @@ drwxr-xr-x root   root          0 Tue, 2025-03-18 16:49:44 etc/test
 </details>
      
     
-**Итак, видим что BORG работает и резервные копии папки /etc создаются каждые 5 минут, в состветствии с настроками таймера.**
+**Итак, видим что borgbackup работает и резервные копии папки /etc создаются каждые 5 минут (в состветствии с настроками таймера).**
 
