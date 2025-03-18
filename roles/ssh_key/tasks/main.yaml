@@ -1,0 +1,38 @@
+---
+- name: SSH  Disable confirmation for add ssh-key в known_hosts
+  delegate_to: client # run task on client
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/disable_kh.conf"
+    dest: /etc/ssh/ssh_config.d/disable_kh.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart_ssh
+
+- name: Generate SSH key for client (if none)
+  delegate_to: client  # run task on client
+  community.crypto.openssh_keypair:
+    path: "{{borg_ssh_key_file_path}}"
+    type:  "{{borg_ssh_key_type}}"
+    owner: "{{ client_user }}"
+    group: "{{ client_user }}"
+    mode: '0600'
+
+- name: Get public key from client
+  delegate_to: client  # run task on client
+  ansible.builtin.slurp:
+    src: "{{ borg_ssh_key_file_path }}.pub"
+  register: public_key
+
+- name: Create directory (if none)
+  file:
+    path: "{{backup_user_info_home }}/.ssh"
+    state: directory
+    mode: 0755
+
+- name: Add public key client into authorized_keys in backup host
+  ansible.posix.authorized_key:
+    user: "{{borg_user}}"  
+    key: "{{ public_key.content | b64decode }}"
+    state: present
+...

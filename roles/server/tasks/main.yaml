@@ -1,0 +1,22 @@
+---
+- name: Create user borg
+  user:
+    name: borg
+    shell: /bin/bash
+    create_home: yes
+    state: present
+    comment: "Backup User"
+
+- name: check and setup dir /var/backup
+  file:
+    path: "{{backup_dir}}"
+    state: directory
+    owner: borg
+    group: borg
+    mode: '0755'
+    recurse: yes
+
+- name: clean dir /var/backup 
+  shell:
+    cmd: "rm -rf /var/backup/* /var/backup/.* 2>/dev/null || true"
+...

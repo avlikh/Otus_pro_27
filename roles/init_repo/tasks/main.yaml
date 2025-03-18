@@ -1,0 +1,8 @@
+---
+- name: Repository init
+  ansible.builtin.command:
+    cmd: "borg init --encryption={{encript_type}} {{repo_name}}"
+    creates: "{{ repo_name }}/README"  # Check that repository created
+  environment:
+    BORG_PASSPHRASE: "{{ borg_repo_password }}"
+...
